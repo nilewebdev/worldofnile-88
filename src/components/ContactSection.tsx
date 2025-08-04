@@ -1,0 +1,185 @@
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { 
+  Mail, 
+  MessageCircle, 
+  Phone, 
+  MapPin, 
+  Send,
+  ExternalLink,
+  Github,
+  Linkedin,
+  Instagram,
+  Twitter
+} from "lucide-react";
+
+const ContactSection = () => {
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email",
+      value: "hello@creativestudio.com",
+      link: "mailto:hello@creativestudio.com"
+    },
+    {
+      icon: Phone,
+      title: "Phone",
+      value: "+1 (555) 123-4567",
+      link: "tel:+15551234567"
+    },
+    {
+      icon: MapPin,
+      title: "Location",
+      value: "Los Angeles, CA",
+      link: "#"
+    }
+  ];
+
+  const socialLinks = [
+    { icon: Github, name: "GitHub", url: "#" },
+    { icon: Linkedin, name: "LinkedIn", url: "#" },
+    { icon: Instagram, name: "Instagram", url: "#" },
+    { icon: Twitter, name: "Twitter", url: "#" }
+  ];
+
+  return (
+    <section id="contact" className="py-24 bg-muted/30">
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6">
+            <MessageCircle className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium">Get In Touch</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-space font-bold mb-6">
+            <span className="text-foreground">Let's Create </span>
+            <span className="gradient-text">Together</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Ready to bring your vision to life? Let's discuss your next project and create something amazing
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Form */}
+          <Card className="glass p-8 border-border/50">
+            <h3 className="text-2xl font-space font-semibold mb-6 gradient-text">
+              Send a Message
+            </h3>
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Name</label>
+                  <Input placeholder="Your name" className="glass border-border/50" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Email</label>
+                  <Input type="email" placeholder="your@email.com" className="glass border-border/50" />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">Subject</label>
+                <Input placeholder="Project inquiry" className="glass border-border/50" />
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">Message</label>
+                <Textarea 
+                  placeholder="Tell me about your project..." 
+                  rows={5}
+                  className="glass border-border/50 resize-none"
+                />
+              </div>
+              <Button variant="hero" size="lg" className="w-full group">
+                Send Message
+                <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </form>
+          </Card>
+
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <Card className="glass p-8 border-border/50">
+              <h3 className="text-2xl font-space font-semibold mb-6 gradient-text">
+                Contact Information
+              </h3>
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => {
+                  const IconComponent = info.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={info.link}
+                      className="flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors group"
+                    >
+                      <div className="bg-gradient-primary p-3 rounded-lg group-hover:scale-110 transition-transform">
+                        <IconComponent className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm text-muted-foreground">{info.title}</div>
+                        <div className="text-foreground group-hover:text-primary transition-colors">
+                          {info.value}
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* Social Links */}
+            <Card className="glass p-8 border-border/50">
+              <h3 className="text-xl font-space font-semibold mb-6 gradient-text">
+                Follow My Work
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {socialLinks.map((social, index) => {
+                  const IconComponent = social.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={social.url}
+                      className="flex items-center gap-3 p-3 rounded-lg glass hover:shadow-glow transition-all duration-300 group border border-border/50 hover:border-primary/30"
+                    >
+                      <IconComponent className="h-5 w-5 text-primary group-hover:scale-110 transition-transform" />
+                      <span className="font-medium">{social.name}</span>
+                      <ExternalLink className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* Quick Stats */}
+            <Card className="glass p-8 border-border/50">
+              <h3 className="text-xl font-space font-semibold mb-6 gradient-text">
+                Why Work With Me?
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Response Time</span>
+                  <span className="font-semibold text-primary">Within 24hrs</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Project Delivery</span>
+                  <span className="font-semibold text-primary">On Schedule</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Revisions</span>
+                  <span className="font-semibold text-primary">Unlimited</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Support</span>
+                  <span className="font-semibold text-primary">24/7 Available</span>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
