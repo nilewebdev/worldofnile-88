@@ -6,10 +6,7 @@ import {
   Phone, 
   MapPin, 
   ExternalLink,
-  Github,
-  Linkedin,
-  Instagram,
-  Twitter
+  Github
 } from "lucide-react";
 
 const ContactSection = () => {
@@ -17,28 +14,34 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "hello@wonproductions.com",
-      link: "mailto:hello@wonproductions.com"
+      value: "contact@worldofnile.xyz",
+      link: "mailto:contact@worldofnile.xyz"
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      value: "+44 7404 550216",
+      link: "tel:+447404550216"
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "Los Angeles, CA",
+      value: "United Kingdom",
       link: "#"
     }
   ];
 
   const socialLinks = [
-    { icon: Github, name: "GitHub", url: "#" },
-    { icon: Linkedin, name: "LinkedIn", url: "#" },
-    { icon: Instagram, name: "Instagram", url: "#" },
-    { icon: Twitter, name: "Twitter", url: "#" }
+    { 
+      icon: Github, 
+      name: "GitHub", 
+      url: "https://github.com/nilewebdev" 
+    },
+    { 
+      icon: MessageCircle, 
+      name: "TikTok", 
+      url: "https://tiktok.com/@exantz" 
+    }
   ];
 
   return (

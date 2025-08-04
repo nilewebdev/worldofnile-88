@@ -1,24 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play, ExternalLink } from "lucide-react";
 
 const TikTokSection = () => {
-  const [loadedEmbeds, setLoadedEmbeds] = useState<Set<string>>(new Set());
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  
+  useEffect(() => {
+    // Load TikTok embed script
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    script.onload = () => setIsScriptLoaded(true);
+    document.body.appendChild(script);
+    
+    return () => {
+      // Cleanup script on unmount
+      const existingScript = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
+    };
+  }, []);
 
-  // TikTok video IDs from @exantz account
-  const tiktokVideos = [
-    "7234567890123456789", // Replace with actual video IDs
-    "7234567890123456790", 
-    "7234567890123456791",
-    "7234567890123456792",
-    "7234567890123456793",
-    "7234567890123456794",
+  // Sample TikTok posts - you can replace with actual video URLs from @exantz
+  const tiktokPosts = [
+    "https://www.tiktok.com/@exantz/video/7234567890123456789",
+    "https://www.tiktok.com/@exantz/video/7234567890123456790", 
+    "https://www.tiktok.com/@exantz/video/7234567890123456791",
+    "https://www.tiktok.com/@exantz/video/7234567890123456792",
+    "https://www.tiktok.com/@exantz/video/7234567890123456793",
+    "https://www.tiktok.com/@exantz/video/7234567890123456794",
   ];
-
-  const loadEmbed = (videoId: string) => {
-    setLoadedEmbeds(prev => new Set([...prev, videoId]));
-  };
 
   return (
     <section id="content" className="py-24">
@@ -40,67 +53,65 @@ const TikTokSection = () => {
 
         {/* TikTok Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {tiktokVideos.map((videoId) => (
+          {tiktokPosts.map((postUrl, index) => (
             <Card 
-              key={videoId}
-              className="glass overflow-hidden group hover:shadow-creative transition-all duration-500 border-border/50 hover:border-primary/30 aspect-[9/16]"
+              key={index}
+              className="glass overflow-hidden group hover:shadow-creative transition-all duration-500 border-border/50 hover:border-primary/30"
             >
-              {loadedEmbeds.has(videoId) ? (
-                <div className="w-full h-full">
+              <div className="relative w-full aspect-[9/16]">
+                {isScriptLoaded ? (
                   <blockquote 
                     className="tiktok-embed w-full h-full" 
-                    cite={`https://www.tiktok.com/@exantz/video/${videoId}`}
-                    data-video-id={videoId}
+                    cite={postUrl}
+                    data-video-id={postUrl.split('/').pop()}
+                    style={{
+                      maxWidth: '100%',
+                      minWidth: '288px'
+                    }}
                   >
                     <section>
                       <a 
                         target="_blank" 
                         title="@exantz" 
                         href="https://www.tiktok.com/@exantz"
-                        className="block w-full h-full bg-muted/20 flex items-center justify-center"
+                        rel="noopener noreferrer"
+                        className="block w-full h-full bg-muted/20 flex items-center justify-center rounded-lg"
                       >
-                        <div className="text-center">
+                        <div className="text-center p-6">
                           <Play className="h-12 w-12 text-primary mx-auto mb-4" />
-                          <p className="text-sm text-muted-foreground">Loading TikTok...</p>
+                          <p className="text-sm text-muted-foreground font-code">Loading TikTok...</p>
                         </div>
                       </a>
                     </section>
                   </blockquote>
-                </div>
-              ) : (
-                <div className="relative w-full h-full bg-muted/10 flex items-center justify-center group cursor-pointer">
-                  <div className="text-center">
-                    <div className="bg-primary/20 p-4 rounded-full mb-4 group-hover:bg-primary/30 transition-colors">
-                      <Play className="h-8 w-8 text-primary" />
+                ) : (
+                  <div className="w-full h-full bg-muted/10 flex items-center justify-center group cursor-pointer rounded-lg">
+                    <div className="text-center p-6">
+                      <div className="bg-primary/20 p-4 rounded-full mb-4 group-hover:bg-primary/30 transition-colors">
+                        <Play className="h-8 w-8 text-primary" />
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-4 font-code">Loading TikTok script...</p>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4 font-code">Click to load TikTok</p>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => loadEmbed(videoId)}
-                      className="font-code"
-                    >
-                      Load Video
-                    </Button>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              )}
+                )}
+              </div>
             </Card>
           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <Button variant="creative" size="xl" className="group font-playfair">
+          <Button 
+            variant="creative" 
+            size="xl" 
+            className="group font-playfair"
+            onClick={() => window.open('https://tiktok.com/@exantz', '_blank')}
+          >
             <ExternalLink className="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform" />
             Follow @exantz on TikTok
           </Button>
         </div>
       </div>
-
-      {/* TikTok Embed Script */}
-      <script async src="https://www.tiktok.com/embed.js"></script>
     </section>
   );
 };
