@@ -1,4 +1,4 @@
-import { Play, Palette, Heart, ArrowUp } from "lucide-react";
+import { Play, Palette, Heart, ArrowUp, Mail, Phone, Github, MessageCircle, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -19,46 +19,66 @@ const Footer = () => {
               <div className="bg-gradient-secondary p-2 rounded-lg">
                 <Palette className="h-6 w-6 text-white" />
               </div>
-              <span className="font-space font-bold text-xl gradient-text">
-                CreativeStudio
+              <span className="font-playfair font-bold text-xl gradient-text">
+                WON Productions
               </span>
             </div>
-            <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              Transforming ideas into stunning visuals through professional video editing and creative graphic design. Let's bring your vision to life.
+            <p className="text-muted-foreground mb-6 max-w-md leading-relaxed font-crimson">
+              Creative production studio bringing your vision to life through innovative video content and digital storytelling.
             </p>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-muted-foreground">Made with</span>
+              <span className="text-muted-foreground font-crimson">Made with</span>
               <Heart className="h-4 w-4 text-red-500 fill-red-500" />
-              <span className="text-muted-foreground">for creative minds</span>
+              <span className="text-muted-foreground font-crimson">in the United Kingdom</span>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Contact Info */}
           <div>
-            <h3 className="font-space font-semibold mb-4 gradient-text">Quick Links</h3>
+            <h3 className="font-playfair font-semibold mb-4 gradient-text">Contact</h3>
             <ul className="space-y-3">
-              <li><a href="#home" className="text-muted-foreground hover:text-primary transition-colors">Home</a></li>
-              <li><a href="#services" className="text-muted-foreground hover:text-primary transition-colors">Services</a></li>
-              <li><a href="#portfolio" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</a></li>
-              <li><a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <a href="mailto:contact@worldofnile.xyz" className="text-muted-foreground hover:text-primary transition-colors font-code text-sm">
+                  contact@worldofnile.xyz
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <a href="tel:+447404550216" className="text-muted-foreground hover:text-primary transition-colors font-code">
+                  +44 7404 550216
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+                <span className="text-muted-foreground font-crimson">United Kingdom</span>
+              </li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Social Links */}
           <div>
-            <h3 className="font-space font-semibold mb-4 gradient-text">Services</h3>
+            <h3 className="font-playfair font-semibold mb-4 gradient-text">Connect</h3>
             <ul className="space-y-3">
-              <li><span className="text-muted-foreground">Video Editing</span></li>
-              <li><span className="text-muted-foreground">Graphic Design</span></li>
-              <li><span className="text-muted-foreground">Motion Graphics</span></li>
-              <li><span className="text-muted-foreground">Brand Identity</span></li>
+              <li className="flex items-center gap-2">
+                <Github className="h-4 w-4 text-primary" />
+                <a href="https://github.com/nilewebdev" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors font-code">
+                  @nilewebdev
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <MessageCircle className="h-4 w-4 text-primary" />
+                <a href="https://tiktok.com/@exantz" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors font-code">
+                  @exantz
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © 2024 CreativeStudio. All rights reserved.
+          <div className="text-muted-foreground text-sm mb-4 md:mb-0 font-crimson">
+            © 2024 World Of Nile. All rights reserved.
           </div>
           
           <Button 

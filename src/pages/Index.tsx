@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
-import PortfolioSection from "@/components/PortfolioSection";
+import TikTokSection from "@/components/TikTokSection";
 import BookingForm from "@/components/BookingForm";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -12,7 +12,7 @@ const Index = () => {
       <Navigation />
       <HeroSection />
       <ServicesSection />
-      <PortfolioSection />
+      <TikTokSection />
       <BookingForm />
       <ContactSection />
       <Footer />

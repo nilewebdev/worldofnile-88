@@ -21,6 +21,9 @@ export default {
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
 				'space': ['Space Grotesk', 'sans-serif'],
+				'playfair': ['Playfair Display', 'serif'],
+				'code': ['Source Code Pro', 'monospace'],
+				'crimson': ['Crimson Text', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
