@@ -1,5 +1,6 @@
-import { Play, Palette, Heart, ArrowUp, Mail, Phone, Github, MessageCircle, MapPin } from "lucide-react";
+import { Play, Heart, ArrowUp, Mail, Phone, Github, MessageCircle, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeSelector from "@/components/ThemeSelector";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -12,16 +13,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="bg-gradient-primary p-2 rounded-lg">
-                <Play className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-4 mb-6">
+              <div className="flex items-center space-x-2">
+                <div className="bg-gradient-primary p-2 rounded-lg">
+                  <Play className="h-6 w-6 text-white" />
+                </div>
+                <span className="font-playfair font-bold text-xl gradient-text">
+                  WON Productions
+                </span>
               </div>
-              <div className="bg-gradient-secondary p-2 rounded-lg">
-                <Palette className="h-6 w-6 text-white" />
-              </div>
-              <span className="font-playfair font-bold text-xl gradient-text">
-                WON Productions
-              </span>
+              <ThemeSelector />
             </div>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed font-crimson">
               Creative production studio bringing your vision to life through innovative video content and digital storytelling.

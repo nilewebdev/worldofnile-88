@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Play, Palette } from "lucide-react";
+import { Menu, X, Play } from "lucide-react";
+import ThemeSelector from "@/components/ThemeSelector";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,17 +25,17 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="bg-gradient-primary p-2 rounded-lg">
-              <Play className="h-6 w-6 text-white" />
+          {/* Logo & Theme Selector */}
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <div className="bg-gradient-primary p-2 rounded-lg">
+                <Play className="h-6 w-6 text-white" />
+              </div>
+              <span className="font-space font-bold text-xl gradient-text">
+                WON Productions
+              </span>
             </div>
-            <div className="bg-gradient-secondary p-2 rounded-lg">
-              <Palette className="h-6 w-6 text-white" />
-            </div>
-            <span className="font-space font-bold text-xl gradient-text">
-              WON Productions
-            </span>
+            <ThemeSelector />
           </div>
 
           {/* Desktop Navigation */}

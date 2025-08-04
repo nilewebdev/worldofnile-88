@@ -23,18 +23,15 @@ const TikTokSection = () => {
     };
   }, []);
 
-  // Sample TikTok posts - you can replace with actual video URLs from @exantz
+  // Featured TikTok posts from @exantz
   const tiktokPosts = [
-    "https://www.tiktok.com/@exantz/video/7234567890123456789",
-    "https://www.tiktok.com/@exantz/video/7234567890123456790", 
-    "https://www.tiktok.com/@exantz/video/7234567890123456791",
-    "https://www.tiktok.com/@exantz/video/7234567890123456792",
-    "https://www.tiktok.com/@exantz/video/7234567890123456793",
-    "https://www.tiktok.com/@exantz/video/7234567890123456794",
+    "https://www.tiktok.com/@exantz/photo/7508176157448195350?is_from_webapp=1&sender_device=pc",
+    "https://www.tiktok.com/@exantz/photo/7508100403204984086?is_from_webapp=1&sender_device=pc", 
+    "https://www.tiktok.com/@exantz/video/7528361434279955734?is_from_webapp=1&sender_device=pc",
   ];
 
   return (
-    <section id="content" className="py-24">
+    <section id="portfolio" className="py-24">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
