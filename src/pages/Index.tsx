@@ -8,7 +8,6 @@ import BookingForm from "@/components/BookingForm";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import StickyCTAButton from "@/components/StickyCTAButton";
-import AdminDashboard from "@/components/AdminDashboard";
 
 const Index = () => {
   return (
@@ -23,7 +22,6 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <StickyCTAButton />
-      <AdminDashboard />
     </div>
   );
 };
