@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Play } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
@@ -29,11 +29,11 @@ const HeroSection = () => {
           
           {/* Main Heading */}
           <h1 className="text-6xl md:text-8xl font-space font-bold mb-6 leading-tight">
-            <span className="gradient-text">Creative</span>
+            <span className="gradient-text">WON</span>
             <br />
-            <span className="text-white">Visual</span>
+            <span className="text-white">Productions</span>
             <br />
-            <span className="gradient-text-secondary">Storyteller</span>
+            <span className="gradient-text-secondary">Where Dreams Take Flight</span>
           </h1>
           
           {/* Subheading */}
@@ -46,13 +46,13 @@ const HeroSection = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="hero" size="xl" className="group">
-              View My Work
+            <Button variant="hero" size="xl" className="group" onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              Start Your Project
               <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="glass" size="xl" className="group">
-              <Download className="h-5 w-5" />
-              Download Resume
+            <Button variant="glass" size="xl" className="group" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Play className="h-5 w-5" />
+              View Portfolio
             </Button>
           </div>
           

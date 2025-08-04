@@ -33,7 +33,7 @@ const Navigation = () => {
               <Palette className="h-6 w-6 text-white" />
             </div>
             <span className="font-space font-bold text-xl gradient-text">
-              CreativeStudio
+              WON Productions
             </span>
           </div>
 

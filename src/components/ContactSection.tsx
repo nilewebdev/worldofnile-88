@@ -1,13 +1,10 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import ContactForm from "./ContactForm";
 import { 
   Mail, 
   MessageCircle, 
   Phone, 
   MapPin, 
-  Send,
   ExternalLink,
   Github,
   Linkedin,
@@ -20,8 +17,8 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "hello@creativestudio.com",
-      link: "mailto:hello@creativestudio.com"
+      value: "hello@wonproductions.com",
+      link: "mailto:hello@wonproductions.com"
     },
     {
       icon: Phone,
@@ -68,34 +65,7 @@ const ContactSection = () => {
             <h3 className="text-2xl font-space font-semibold mb-6 gradient-text">
               Send a Message
             </h3>
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Name</label>
-                  <Input placeholder="Your name" className="glass border-border/50" />
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Email</label>
-                  <Input type="email" placeholder="your@email.com" className="glass border-border/50" />
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Subject</label>
-                <Input placeholder="Project inquiry" className="glass border-border/50" />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Message</label>
-                <Textarea 
-                  placeholder="Tell me about your project..." 
-                  rows={5}
-                  className="glass border-border/50 resize-none"
-                />
-              </div>
-              <Button variant="hero" size="lg" className="w-full group">
-                Send Message
-                <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </form>
+            <ContactForm />
           </Card>
 
           {/* Contact Info */}

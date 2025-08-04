@@ -100,10 +100,16 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" size="sm" className="group w-full">
-                  Learn More
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" className="group flex-1">
+                    Learn More
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="default" size="sm" className="group flex-1" onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}>
+                    Book Now
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
               </Card>
             );
           })}
@@ -111,7 +117,7 @@ const ServicesSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button variant="hero" size="xl" className="group">
+          <Button variant="hero" size="xl" className="group" onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}>
             Start Your Project
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Button>
