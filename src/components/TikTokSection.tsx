@@ -48,49 +48,49 @@ const TikTokSection = () => {
           </p>
         </div>
 
-        {/* TikTok Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Mobile-Optimized TikTok Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {tiktokPosts.map((postUrl, index) => (
             <Card 
               key={index}
               className="glass overflow-hidden group hover:shadow-creative transition-all duration-500 border-border/50 hover:border-primary/30"
             >
-              <div className="relative w-full aspect-[9/16]">
-                {isScriptLoaded ? (
-                  <blockquote 
-                    className="tiktok-embed w-full h-full" 
-                    cite={postUrl}
-                    data-video-id={postUrl.split('/').pop()}
-                    style={{
-                      maxWidth: '100%',
-                      minWidth: '288px'
-                    }}
-                  >
-                    <section>
-                      <a 
-                        target="_blank" 
-                        title="@exantz" 
-                        href="https://www.tiktok.com/@exantz"
-                        rel="noopener noreferrer"
-                        className="block w-full h-full bg-muted/20 flex items-center justify-center rounded-lg"
-                      >
-                        <div className="text-center p-6">
-                          <Play className="h-12 w-12 text-primary mx-auto mb-4" />
-                          <p className="text-sm text-muted-foreground font-code">Loading TikTok...</p>
-                        </div>
-                      </a>
-                    </section>
-                  </blockquote>
-                ) : (
-                  <div className="w-full h-full bg-muted/10 flex items-center justify-center group cursor-pointer rounded-lg">
-                    <div className="text-center p-6">
-                      <div className="bg-primary/20 p-4 rounded-full mb-4 group-hover:bg-primary/30 transition-colors">
-                        <Play className="h-8 w-8 text-primary" />
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-4 font-code">Loading TikTok script...</p>
-                    </div>
-                  </div>
-                )}
+              <div className="relative w-full aspect-[9/16] max-w-[350px] mx-auto">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src={`https://www.tiktok.com/embed/v2/${postUrl.split('/').pop()?.split('?')[0]}?lang=en-US`}
+                  allow="encrypted-media;"
+                  allowFullScreen
+                  loading="lazy"
+                  style={{
+                    border: 'none',
+                    maxWidth: '100%',
+                    minHeight: '400px'
+                  }}
+                  onError={(e) => {
+                    // Fallback to link if iframe fails
+                    const target = e.target as HTMLIFrameElement;
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `
+                        <a 
+                          href="${postUrl}" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          class="flex flex-col items-center justify-center h-full bg-muted/20 rounded-lg text-center p-6 hover:bg-muted/30 transition-colors group"
+                        >
+                          <div class="bg-primary/20 p-4 rounded-full mb-4 group-hover:bg-primary/30 transition-colors">
+                            <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <p class="text-sm text-muted-foreground mb-2">View on TikTok</p>
+                          <p class="text-xs text-muted-foreground">@exantz</p>
+                        </a>
+                      `;
+                    }
+                  }}
+                />
               </div>
             </Card>
           ))}

@@ -63,23 +63,34 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Enhanced Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full glass border-t border-white/10">
-            <div className="container mx-auto px-6 py-4 space-y-4">
-              {navItems.map((item) => (
+          <div className="md:hidden absolute top-full left-0 w-full glass border-t border-white/10 animate-fade-in">
+            <div className="container mx-auto px-6 py-6 space-y-6">
+              {navItems.map((item, index) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="block text-foreground hover:text-primary transition-colors duration-300 font-medium"
+                  className="block text-foreground hover:text-primary transition-colors duration-300 font-medium text-lg py-2 px-4 rounded-lg hover:bg-primary/10"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item}
                 </a>
               ))}
-              <Button variant="hero" size="sm" className="w-full">
-                Get Started
-              </Button>
+              <div className="pt-4 border-t border-white/10">
+                <Button 
+                  variant="hero" 
+                  size="lg" 
+                  className="w-full text-lg py-4"
+                  onClick={() => {
+                    document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" });
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Get Started
+                </Button>
+              </div>
             </div>
           </div>
         )}

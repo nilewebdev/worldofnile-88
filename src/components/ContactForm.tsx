@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -103,8 +104,17 @@ const ContactForm = () => {
         className="w-full group"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Sending..." : "Send Message"}
-        <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+        {isSubmitting ? (
+          <>
+            <LoadingSpinner size="sm" className="mr-2" />
+            Sending...
+          </>
+        ) : (
+          <>
+            Send Message
+            <Send className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </>
+        )}
       </Button>
     </form>
   );

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
@@ -170,8 +171,17 @@ const BookingForm = () => {
                 className="w-full group"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Submitting..." : "Book Your Project"}
-                <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                {isSubmitting ? (
+                  <>
+                    <LoadingSpinner size="sm" className="mr-2" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    Book Your Project
+                    <Send className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </Button>
             </form>
           </Card>
