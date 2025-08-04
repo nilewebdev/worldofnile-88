@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Play } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
+import wonLogo from "@/assets/won-logo.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,12 +29,11 @@ const Navigation = () => {
           {/* Logo & Theme Selector */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <div className="bg-gradient-primary p-2 rounded-lg">
-                <Play className="h-6 w-6 text-white" />
-              </div>
-              <span className="font-space font-bold text-xl gradient-text">
-                WON Productions
-              </span>
+              <img 
+                src={wonLogo} 
+                alt="WON Productions" 
+                className="h-10 w-auto"
+              />
             </div>
             <ThemeSelector />
           </div>
@@ -63,34 +63,34 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Enhanced Mobile Menu */}
+          {/* Enhanced Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full glass border-t border-white/10 animate-fade-in">
-            <div className="container mx-auto px-6 py-6 space-y-6">
-              {navItems.map((item, index) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="block text-foreground hover:text-primary transition-colors duration-300 font-medium text-lg py-2 px-4 rounded-lg hover:bg-primary/10"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {item}
-                </a>
-              ))}
-              <div className="pt-4 border-t border-white/10">
-                <Button 
-                  variant="hero" 
-                  size="lg" 
-                  className="w-full text-lg py-4"
-                  onClick={() => {
-                    document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" });
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  Get Started
-                </Button>
+            <div className="container mx-auto px-4 py-4">
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                {navItems.map((item, index) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="block text-foreground hover:text-primary transition-colors duration-300 font-medium text-sm py-3 px-3 rounded-lg hover:bg-primary/10 text-center border border-white/10"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    {item}
+                  </a>
+                ))}
               </div>
+              <Button 
+                variant="hero" 
+                size="sm" 
+                className="w-full text-sm py-3"
+                onClick={() => {
+                  document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" });
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Get Started
+              </Button>
             </div>
           </div>
         )}

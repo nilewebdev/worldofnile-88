@@ -46,7 +46,7 @@ const themeColors = {
 };
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [themeColor, setThemeColor] = useState<ThemeColor>('white');
+  const [themeColor, setThemeColor] = useState<ThemeColor>('blue');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme-color') as ThemeColor;
