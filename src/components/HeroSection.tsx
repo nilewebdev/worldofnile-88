@@ -50,10 +50,15 @@ const HeroSection = () => {
               Start Your Project
               <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="glass" size="lg" className="w-full sm:w-auto group text-sm sm:text-base" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
-              <Play className="h-4 w-4 sm:h-5 sm:w-5" />
-              View Portfolio
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+              <Button variant="glass" size="lg" className="w-full sm:w-auto group text-sm sm:text-base" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
+                <Play className="h-4 w-4 sm:h-5 sm:w-5" />
+                View Portfolio
+              </Button>
+              <Button variant="glass" size="lg" className="w-full sm:w-auto group text-sm sm:text-base" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
+                About Me
+              </Button>
+            </div>
           </div>
           
           {/* Stats */}
