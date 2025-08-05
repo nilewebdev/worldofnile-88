@@ -10,9 +10,11 @@ const FiverrSection = () => {
             {/* Profile Image */}
             <div className="flex-shrink-0">
               <div className="relative w-24 h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-white/30">
-                <div className="w-full h-full bg-primary/20 flex items-center justify-center text-white font-bold text-2xl lg:text-4xl">
-                  WON
-                </div>
+                <img 
+                  src="https://fiverr-res.cloudinary.com/image/upload/f_auto,q_auto,t_profile_original/v1/attachments/profile/photo/79e758ab7090bac6211d3564a8286263-1754355554022/a8861c90-7582-47aa-839f-3b83b5e0a2eb.png"
+                  alt="Rheon N - WON Productions"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
               </div>
             </div>
@@ -72,9 +74,11 @@ const FiverrSection = () => {
           <div className="mt-6 pt-6 border-t border-white/20">
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-shrink-0">
-                <div className="w-20 h-20 sm:w-16 sm:h-16 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold text-xs">
-                  YT THUMB
-                </div>
+                <img 
+                  src="https://fiverr-res.cloudinary.com/images/t_gig_cards_web,q_auto,f_auto/gigs/414950066/original/8af3e9e5ea1acfda61e20b48b5f40cf8dba7d0ad/design-and-create-you-a-youtube-thumbnail.png"
+                  alt="YouTube Thumbnail Design Service"
+                  className="w-20 h-20 sm:w-16 sm:h-16 object-cover rounded-lg"
+                />
               </div>
               <div className="flex-1 text-center sm:text-left">
                 <h4 className="text-white font-semibold text-sm lg:text-base mb-1">
