@@ -39,13 +39,16 @@ const AdminDashboard = ({ isOpen, onClose, user }: AdminDashboardProps) => {
   const { toast } = useToast();
 
   // Check if user is admin (you can modify this logic)
-const isAdmin = user?.email === "rheono65@gmail.com";
+const isAdmin = user?.email?.toLowerCase() === "rheono65@gmail.com";
 
 useEffect(() => {
-  if (isAdmin && isOpen) {
+  if (!user) return;
+
+  const admin = user.email?.toLowerCase() === "rheono65@gmail.com";
+  if (admin && isOpen) {
     fetchAllBookings();
   }
-}, [isAdmin, isOpen]);
+}, [user, isOpen]);
 
   const fetchAllBookings = async () => {
     setIsLoading(true);
