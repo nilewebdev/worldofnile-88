@@ -83,11 +83,30 @@ const BookingForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('create-booking', {
-        body: formData
-      });
+      // Add retry logic for the booking submission
+      let attempts = 0;
+      const maxAttempts = 2;
+      
+      while (attempts < maxAttempts) {
+        try {
+          const { error } = await supabase.functions.invoke('create-booking', {
+            body: formData
+          });
 
-      if (error) throw error;
+          if (error) throw error;
+          
+          // Success - break out of retry loop
+          break;
+        } catch (error: any) {
+          attempts++;
+          if (attempts >= maxAttempts) {
+            throw error; // Re-throw if max attempts reached
+          }
+          
+          // Wait a short time before retrying
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
 
       toast({
         title: "Booking Request Submitted!",
@@ -181,19 +200,15 @@ const BookingForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium mb-2 block">Budget Range</label>
-                  <Select value={formData.budget_range} onValueChange={(value) => setFormData(prev => ({ ...prev, budget_range: value }))}>
-                    <SelectTrigger className="glass border-border/50">
-                      <SelectValue placeholder="Select budget range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="500-1000">$500 - $1,000</SelectItem>
-                      <SelectItem value="1000-2500">$1,000 - $2,500</SelectItem>
-                      <SelectItem value="2500-5000">$2,500 - $5,000</SelectItem>
-                      <SelectItem value="5000-10000">$5,000 - $10,000</SelectItem>
-                      <SelectItem value="10000+">$10,000+</SelectItem>
-                      <SelectItem value="discuss">Let's Discuss</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Input 
+                    placeholder="e.g., $2,000 - $5,000 or Let's discuss" 
+                    className="glass border-border/50"
+                    value={formData.budget_range}
+                    onChange={(e) => setFormData(prev => ({ ...prev, budget_range: e.target.value }))}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Enter your budget range or "Let's discuss" for a custom quote
+                  </p>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-2 block">Timeline</label>

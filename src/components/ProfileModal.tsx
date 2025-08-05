@@ -23,6 +23,11 @@ const ProfileModal = ({ isOpen, onClose, user }: ProfileModalProps) => {
   });
   const { toast } = useToast();
 
+  const [initialProfile, setInitialProfile] = useState({
+    name: "",
+    email: user?.email || "",
+  });
+
   useEffect(() => {
     if (user && isOpen) {
       fetchProfile();
@@ -41,12 +46,13 @@ const ProfileModal = ({ isOpen, onClose, user }: ProfileModalProps) => {
 
       if (error && error.code !== 'PGRST116') throw error;
       
-      if (data) {
-        setProfile({
-          name: data.name || "",
-          email: data.email || user.email || "",
-        });
-      }
+      const profileData = {
+        name: data?.name || "",
+        email: data?.email || user.email || "",
+      };
+      
+      setProfile(profileData);
+      setInitialProfile(profileData);
     } catch (error: any) {
       console.error('Error fetching profile:', error);
     }
@@ -54,19 +60,34 @@ const ProfileModal = ({ isOpen, onClose, user }: ProfileModalProps) => {
 
   const handleSave = async () => {
     if (!user) return;
+    
+    // Check if there are any changes
+    const hasChanges = profile.name !== initialProfile.name || profile.email !== initialProfile.email;
+    
+    if (!hasChanges) {
+      toast({
+        title: "No changes detected",
+        description: "No changes were made to your profile.",
+      });
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
       const { error } = await supabase
         .from('profiles')
-        .upsert({
-          user_id: user.id,
+        .update({
           name: profile.name,
           email: profile.email,
           updated_at: new Date().toISOString(),
-        });
+        })
+        .eq('user_id', user.id);
 
       if (error) throw error;
+
+      // Update the initial profile state
+      setInitialProfile(profile);
 
       toast({
         title: "Profile updated",
