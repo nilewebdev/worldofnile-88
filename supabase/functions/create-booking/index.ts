@@ -43,6 +43,23 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Booking saved successfully:", data);
 
+    // Send SMS notification
+    try {
+      const adminPhoneNumber = Deno.env.get("ADMIN_PHONE_NUMBER");
+      if (adminPhoneNumber) {
+        await supabase.functions.invoke('send-sms-notification', {
+          body: {
+            to: adminPhoneNumber,
+            bookingDetails: { name, email, service, budget_range }
+          }
+        });
+        console.log("SMS notification sent successfully");
+      }
+    } catch (smsError) {
+      console.error("Failed to send SMS notification:", smsError);
+      // Don't fail the booking if SMS fails
+    }
+
     return new Response(
       JSON.stringify({ success: true, message: "Booking request submitted successfully!" }),
       {

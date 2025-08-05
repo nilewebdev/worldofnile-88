@@ -9,6 +9,7 @@ import BookingForm from "@/components/BookingForm";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import StickyCTAButton from "@/components/StickyCTAButton";
+import LiveChat from "@/components/LiveChat";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <StickyCTAButton />
+      <LiveChat />
     </div>
   );
 };

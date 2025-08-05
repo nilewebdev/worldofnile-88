@@ -81,7 +81,11 @@ const Navigation = () => {
                 {item}
               </a>
             ))}
-            <Button variant="hero" size="sm">
+            <Button 
+              variant="hero" 
+              size="sm"
+              onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get Started
             </Button>
             
