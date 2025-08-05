@@ -43,21 +43,17 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Booking saved successfully:", data);
 
-    // Send SMS notification
+    // Send Discord notification
     try {
-      const adminPhoneNumber = Deno.env.get("ADMIN_PHONE_NUMBER");
-      if (adminPhoneNumber) {
-        await supabase.functions.invoke('send-sms-notification', {
-          body: {
-            to: adminPhoneNumber,
-            bookingDetails: { name, email, service, budget_range }
-          }
-        });
-        console.log("SMS notification sent successfully");
-      }
-    } catch (smsError) {
-      console.error("Failed to send SMS notification:", smsError);
-      // Don't fail the booking if SMS fails
+      await supabase.functions.invoke('send-discord-notification', {
+        body: {
+          bookingDetails: { name, email, service, budget_range, timeline, project_details }
+        }
+      });
+      console.log("Discord notification sent successfully");
+    } catch (discordError) {
+      console.error("Failed to send Discord notification:", discordError);
+      // Don't fail the booking if Discord fails
     }
 
     return new Response(

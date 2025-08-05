@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Menu, X, User, LogIn, LogOut, Calendar, Settings } from "lucide-react";
+import { Menu, X, User, LogIn, LogOut, Calendar, Settings as SettingsIcon } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
 import AuthModal from "@/components/AuthModal";
 import ProfileModal from "@/components/ProfileModal";
 import BookingsModal from "@/components/BookingsModal";
 import SettingsModal from "@/components/SettingsModal";
+import AdminDashboard from "@/components/AdminDashboard";
 import wonLogo from "@/assets/won-logo-transparent.png";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
@@ -19,6 +20,7 @@ const Navigation = () => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -39,6 +41,8 @@ const Navigation = () => {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
   };
+
+  const isAdmin = user?.email === "admin@wonproductions.com" || user?.email?.endsWith("@wonproductions.com");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,9 +113,15 @@ const Navigation = () => {
                       <span>My Bookings</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setIsSettingsModalOpen(true)}>
-                      <Settings className="mr-2 h-4 w-4" />
+                      <SettingsIcon className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </DropdownMenuItem>
+                    {isAdmin && (
+                      <DropdownMenuItem onClick={() => setIsAdminDashboardOpen(true)}>
+                        <SettingsIcon className="mr-2 h-4 w-4" />
+                        <span>Admin Dashboard</span>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleSignOut}>
                       <LogOut className="mr-2 h-4 w-4" />
@@ -182,17 +192,22 @@ const Navigation = () => {
         <ProfileModal 
           isOpen={isProfileModalOpen} 
           onClose={() => setIsProfileModalOpen(false)} 
-          user={user}
+          user={user} 
         />
         <BookingsModal 
           isOpen={isBookingsModalOpen} 
           onClose={() => setIsBookingsModalOpen(false)} 
-          user={user}
+          user={user} 
         />
         <SettingsModal 
           isOpen={isSettingsModalOpen} 
           onClose={() => setIsSettingsModalOpen(false)} 
-          user={user}
+          user={user} 
+        />
+        <AdminDashboard 
+          isOpen={isAdminDashboardOpen} 
+          onClose={() => setIsAdminDashboardOpen(false)} 
+          user={user} 
         />
       </div>
     </nav>

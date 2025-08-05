@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MessageCircle, X, Send, Minimize2 } from "lucide-react";
+import { MessageCircle, X, Send, Minimize2, Bot } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const LiveChat = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,17 +13,19 @@ const LiveChat = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hi! I'm here to help with any questions about our video editing and design services. How can I assist you today?",
+      text: "Hi! I'm an AI assistant for WON Productions. I can help you with questions about our video editing and design services. How can I assist you today?",
       sender: "agent",
       timestamp: new Date(),
+      isAI: true,
     }
   ]);
   const [newMessage, setNewMessage] = useState("");
   const [userInfo, setUserInfo] = useState({ name: "", email: "" });
   const [hasProvidedInfo, setHasProvidedInfo] = useState(false);
+  const [isAiTyping, setIsAiTyping] = useState(false);
   const { toast } = useToast();
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
     // Add user message
@@ -31,29 +34,56 @@ const LiveChat = () => {
       text: newMessage,
       sender: "user" as const,
       timestamp: new Date(),
+      isAI: false,
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const messageToSend = newMessage;
     setNewMessage("");
+    setIsAiTyping(true);
 
-    // Auto-reply (in a real app, this would connect to your chat service)
-    setTimeout(() => {
-      const responses = [
-        "Thanks for your message! I'll get back to you shortly.",
-        "That's a great question! Let me help you with that.",
-        "I'd be happy to discuss your project needs. Would you like to schedule a consultation?",
-        "For urgent matters, feel free to call us directly or book a project consultation."
-      ];
-      
-      const autoReply = {
+    try {
+      // Call AI function
+      const { data, error } = await supabase.functions.invoke('ai-chat', {
+        body: {
+          message: messageToSend,
+          context: `User info: ${userInfo.name} (${userInfo.email})`
+        }
+      });
+
+      if (error) throw error;
+
+      const aiResponse = {
         id: messages.length + 2,
-        text: responses[Math.floor(Math.random() * responses.length)],
+        text: data.response || "I'm sorry, I'm having trouble responding right now. Please try again.",
         sender: "agent" as const,
         timestamp: new Date(),
+        isAI: true,
       };
 
-      setMessages(prev => [...prev, autoReply]);
-    }, 1000);
+      setMessages(prev => [...prev, aiResponse]);
+    } catch (error: any) {
+      console.error('AI chat error:', error);
+      
+      // Fallback responses if AI fails
+      const fallbackResponses = [
+        "Thanks for your message! I'm experiencing some technical difficulties. For immediate assistance, please use our booking form or contact us directly.",
+        "I apologize, but I'm having trouble connecting right now. Would you like to book a consultation to discuss your project?",
+        "Sorry for the technical issue. You can reach us through our contact form or visit our Fiverr profile for immediate service."
+      ];
+      
+      const fallbackResponse = {
+        id: messages.length + 2,
+        text: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
+        sender: "agent" as const,
+        timestamp: new Date(),
+        isAI: false,
+      };
+
+      setMessages(prev => [...prev, fallbackResponse]);
+    } finally {
+      setIsAiTyping(false);
+    }
   };
 
   const handleStartChat = () => {
@@ -89,7 +119,8 @@ const LiveChat = () => {
           <CardTitle className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-4 w-4" />
-              <span>Live Chat - WON Productions</span>
+              <span>AI Chat - WON Productions</span>
+              <Bot className="h-3 w-3 text-primary-foreground/70" />
             </div>
             <div className="flex gap-1">
               <Button
@@ -150,10 +181,28 @@ const LiveChat = () => {
                             : 'bg-muted text-foreground'
                         }`}
                       >
-                        {message.text}
+                        <div className="flex items-start gap-1">
+                          {message.sender === 'agent' && 'isAI' in message && message.isAI && (
+                            <Bot className="h-3 w-3 mt-0.5 text-primary flex-shrink-0" />
+                          )}
+                          <span>{message.text}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
+                  {isAiTyping && (
+                    <div className="flex justify-start">
+                      <div className="bg-muted text-foreground p-2 rounded-lg text-sm flex items-center gap-2">
+                        <Bot className="h-3 w-3 text-primary" />
+                        <span>AI is typing...</span>
+                        <div className="flex space-x-1">
+                          <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                          <div className="w-1 h-1 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+                          <div className="w-1 h-1 bg-primary rounded-full animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Input */}
