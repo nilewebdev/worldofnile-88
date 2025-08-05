@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Menu, X, User, LogIn, LogOut, Calendar, Settings } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
+import AuthModal from "@/components/AuthModal";
 import wonLogo from "@/assets/won-logo-transparent.png";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
@@ -11,6 +12,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -108,11 +110,11 @@ const Navigation = () => {
                   </>
                 ) : (
                   <>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsAuthModalOpen(true)}>
                       <LogIn className="mr-2 h-4 w-4" />
                       <span>Sign In</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsAuthModalOpen(true)}>
                       <User className="mr-2 h-4 w-4" />
                       <span>Sign Up</span>
                     </DropdownMenuItem>
@@ -162,6 +164,11 @@ const Navigation = () => {
             </div>
           </div>
         )}
+        
+        <AuthModal 
+          isOpen={isAuthModalOpen} 
+          onClose={() => setIsAuthModalOpen(false)} 
+        />
       </div>
     </nav>
   );
