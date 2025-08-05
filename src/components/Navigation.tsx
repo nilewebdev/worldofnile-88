@@ -4,6 +4,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Menu, X, User, LogIn, LogOut, Calendar, Settings } from "lucide-react";
 import ThemeSelector from "@/components/ThemeSelector";
 import AuthModal from "@/components/AuthModal";
+import ProfileModal from "@/components/ProfileModal";
+import BookingsModal from "@/components/BookingsModal";
+import SettingsModal from "@/components/SettingsModal";
 import wonLogo from "@/assets/won-logo-transparent.png";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
@@ -13,6 +16,9 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -90,15 +96,15 @@ const Navigation = () => {
               <DropdownMenuContent align="end" className="w-56">
                 {user ? (
                   <>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsProfileModalOpen(true)}>
                       <User className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsBookingsModalOpen(true)}>
                       <Calendar className="mr-2 h-4 w-4" />
                       <span>My Bookings</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setIsSettingsModalOpen(true)}>
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </DropdownMenuItem>
@@ -168,6 +174,21 @@ const Navigation = () => {
         <AuthModal 
           isOpen={isAuthModalOpen} 
           onClose={() => setIsAuthModalOpen(false)} 
+        />
+        <ProfileModal 
+          isOpen={isProfileModalOpen} 
+          onClose={() => setIsProfileModalOpen(false)} 
+          user={user}
+        />
+        <BookingsModal 
+          isOpen={isBookingsModalOpen} 
+          onClose={() => setIsBookingsModalOpen(false)} 
+          user={user}
+        />
+        <SettingsModal 
+          isOpen={isSettingsModalOpen} 
+          onClose={() => setIsSettingsModalOpen(false)} 
+          user={user}
         />
       </div>
     </nav>
