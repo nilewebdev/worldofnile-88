@@ -39,7 +39,7 @@ const AdminDashboard = ({ isOpen, onClose, user }: AdminDashboardProps) => {
   const { toast } = useToast();
 
   // Check if user is admin (you can modify this logic)
-  const isAdmin = user?.email === "admin@wonproductions.com" || user?.email?.endsWith("@wonproductions.com");
+  const isAdmin = user?.email === "contact@worldofnile.com" || user?.email?.endsWith("@worldofnile.com");
 
   useEffect(() => {
     if (isAdmin && isOpen) {
