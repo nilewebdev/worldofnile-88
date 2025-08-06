@@ -35,7 +35,7 @@ const BookingOnboardingBar = () => {
               
               <Button
                 onClick={scrollToBookingForm}
-                className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group"
+                className="bg-gradient-primary hover:shadow-glow transition-all duration-300 group mobile-button-large"
               >
                 Start Project
                 <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />

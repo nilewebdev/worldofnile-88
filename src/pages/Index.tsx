@@ -16,10 +16,16 @@ import LiveChat from "@/components/LiveChat";
 import BookingsModal from "@/components/BookingsModal";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
+import { useMobile } from "@/hooks/use-mobile-detect";
+import { usePWA } from "@/hooks/use-pwa";
 
 const Index = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
+  const isMobile = useMobile();
+  
+  // Initialize PWA functionality
+  usePWA();
 
   useEffect(() => {
     // Get initial session
@@ -38,11 +44,11 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-background ${isMobile ? 'mobile-optimized' : ''}`}>
       <Navigation />
       <FiverrSection />
       <BookingOnboardingBar />
-      <div className="pt-16 sm:pt-20">{/* Reduced top padding for better spacing */}
+      <div className={isMobile ? "pt-12 sm:pt-16" : "pt-16 sm:pt-20"}>{/* Mobile-optimized spacing */}
         <HeroSection />
         <ServicesSection />
         <PortfolioSection />

@@ -8,10 +8,12 @@ import ProfileModal from "@/components/ProfileModal";
 import BookingsModal from "@/components/BookingsModal";
 import SettingsModal from "@/components/SettingsModal";
 import AdminDashboard from "@/components/AdminDashboard";
+import MobileAdminDashboard from "@/components/MobileAdminDashboard";
 import AdminLogin from "@/components/AdminLogin";
 import wonLogo from "@/assets/won-logo-transparent.png";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
+import { useMobile } from "@/hooks/use-mobile-detect";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,6 +26,7 @@ const Navigation = () => {
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  const isMobile = useMobile();
 
   useEffect(() => {
     // Get initial session
@@ -95,6 +98,7 @@ const Navigation = () => {
               variant="hero" 
               size="sm"
               onClick={() => document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })}
+              className="desktop:h-10 mobile:mobile-button-large"
             >
               Get Started
             </Button>
@@ -181,7 +185,7 @@ const Navigation = () => {
               <Button 
                 variant="hero" 
                 size="default" 
-                className="w-full text-base py-4 mb-6"
+                className="w-full text-base py-4 mb-6 mobile-button-large"
                 onClick={() => {
                   document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" });
                   setIsMobileMenuOpen(false);
@@ -307,11 +311,19 @@ const Navigation = () => {
           onAdminLogin={handleAdminLogin}
         />
         {isAdminLoggedIn && (
-          <AdminDashboard 
-            isOpen={isAdminDashboardOpen} 
-            onClose={() => setIsAdminDashboardOpen(false)} 
-            user={user} 
-          />
+          isMobile ? (
+            <MobileAdminDashboard 
+              isOpen={isAdminDashboardOpen} 
+              onClose={() => setIsAdminDashboardOpen(false)} 
+              user={user} 
+            />
+          ) : (
+            <AdminDashboard 
+              isOpen={isAdminDashboardOpen} 
+              onClose={() => setIsAdminDashboardOpen(false)} 
+              user={user} 
+            />
+          )
         )}
       </div>
     </nav>

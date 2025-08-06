@@ -173,6 +173,39 @@
     line-height: 1.3;
     letter-spacing: -0.02em;
   }
+
+  /* Mobile PWA optimizations */
+  .mobile-optimized {
+    /* Prevent zoom on input focus for iOS */
+    -webkit-text-size-adjust: 100%;
+    /* Better touch targets */
+    touch-action: manipulation;
+  }
+
+  .mobile-optimized input,
+  .mobile-optimized textarea,
+  .mobile-optimized select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Larger buttons for mobile */
+  @media (max-width: 768px) {
+    .mobile-button {
+      min-height: 56px;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 12px;
+    }
+    
+    .mobile-button-large {
+      min-height: 64px;
+      padding: 20px 32px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 16px;
+    }
+  }
   
   .gradient-text-secondary {
     background: var(--gradient-secondary);
