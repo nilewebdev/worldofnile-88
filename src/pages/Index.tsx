@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import FiverrSection from "@/components/FiverrSection";
-import BookingsBar from "@/components/BookingsBar";
+import BookingOnboardingBar from "@/components/BookingsBar";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import PortfolioSection from "@/components/PortfolioSection";
@@ -41,11 +41,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <FiverrSection />
-      <BookingsBar 
-        user={user} 
-        onBookingsClick={() => setIsBookingsModalOpen(true)}
-      />
-      <div className="pt-20">
+      <BookingOnboardingBar />
+      <div className="pt-16 sm:pt-20">{/* Reduced top padding for better spacing */}
         <HeroSection />
         <ServicesSection />
         <PortfolioSection />

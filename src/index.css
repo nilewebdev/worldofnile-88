@@ -162,6 +162,17 @@
   .container-padding {
     @apply px-4 sm:px-6 lg:px-8;
   }
+
+  /* Better typography for readability */
+  .text-readable {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .heading-readable {
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
   
   .gradient-text-secondary {
     background: var(--gradient-secondary);

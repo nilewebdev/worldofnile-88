@@ -161,13 +161,14 @@ const Navigation = () => {
           {/* Enhanced Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full glass border-t border-white/10 animate-fade-in">
-            <div className="container mx-auto px-4 py-4">
-              <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="container mx-auto px-4 py-6">
+              {/* Navigation Links */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
                 {navItems.map((item, index) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className="block text-foreground hover:text-primary transition-colors duration-300 font-medium text-sm py-3 px-3 rounded-lg hover:bg-primary/10 text-center border border-white/10"
+                    className="block text-foreground hover:text-primary transition-colors duration-300 font-medium text-base py-4 px-4 rounded-lg hover:bg-primary/10 text-center border border-white/10"
                     onClick={() => setIsMobileMenuOpen(false)}
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
@@ -175,10 +176,12 @@ const Navigation = () => {
                   </a>
                 ))}
               </div>
+              
+              {/* Get Started Button */}
               <Button 
                 variant="hero" 
-                size="sm" 
-                className="w-full text-sm py-3"
+                size="default" 
+                className="w-full text-base py-4 mb-6"
                 onClick={() => {
                   document.getElementById("booking-form")?.scrollIntoView({ behavior: "smooth" });
                   setIsMobileMenuOpen(false);
@@ -186,6 +189,95 @@ const Navigation = () => {
               >
                 Get Started
               </Button>
+
+              {/* Account Section */}
+              <div className="border-t border-white/10 pt-4">
+                <h3 className="text-sm font-medium text-muted-foreground mb-3 px-2">Account</h3>
+                {user ? (
+                  <div className="space-y-2">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsProfileModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <User className="mr-3 h-5 w-5" />
+                      Profile
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsBookingsModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <Calendar className="mr-3 h-5 w-5" />
+                      My Bookings
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsSettingsModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <SettingsIcon className="mr-3 h-5 w-5" />
+                      Settings
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3 text-red-400"
+                      onClick={() => {
+                        handleSignOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <LogOut className="mr-3 h-5 w-5" />
+                      Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsAuthModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <LogIn className="mr-3 h-5 w-5" />
+                      Sign In
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsAuthModalOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <User className="mr-3 h-5 w-5" />
+                      Sign Up
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base py-3"
+                      onClick={() => {
+                        setIsAdminLoginOpen(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      <SettingsIcon className="mr-3 h-5 w-5" />
+                      Admin Login
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
