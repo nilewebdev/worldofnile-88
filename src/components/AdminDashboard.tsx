@@ -38,17 +38,12 @@ const AdminDashboard = ({ isOpen, onClose, user }: AdminDashboardProps) => {
   const [newStatus, setNewStatus] = useState("");
   const { toast } = useToast();
 
-  // Check if user is admin (you can modify this logic)
-const isAdmin = user?.email?.toLowerCase() === "rheono65@gmail.com";
-
-useEffect(() => {
-  if (!user) return;
-
-  const admin = user.email?.toLowerCase() === "rheono65@gmail.com";
-  if (admin && isOpen) {
-    fetchAllBookings();
-  }
-}, [user, isOpen]);
+  // Admin check is now handled by parent component
+  useEffect(() => {
+    if (isOpen) {
+      fetchAllBookings();
+    }
+  }, [isOpen]);
 
   const fetchAllBookings = async () => {
     setIsLoading(true);
@@ -134,18 +129,6 @@ useEffect(() => {
     }
   };
 
-  if (!isAdmin) {
-    return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Access Denied</DialogTitle>
-          </DialogHeader>
-          <p>You don't have permission to access the admin dashboard.</p>
-        </DialogContent>
-      </Dialog>
-    );
-  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

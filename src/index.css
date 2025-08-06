@@ -154,6 +154,15 @@
     background-clip: text;
   }
   
+  /* Improved spacing and padding system */
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+  
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
   .gradient-text-secondary {
     background: var(--gradient-secondary);
     -webkit-background-clip: text;

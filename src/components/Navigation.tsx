@@ -8,6 +8,7 @@ import ProfileModal from "@/components/ProfileModal";
 import BookingsModal from "@/components/BookingsModal";
 import SettingsModal from "@/components/SettingsModal";
 import AdminDashboard from "@/components/AdminDashboard";
+import AdminLogin from "@/components/AdminLogin";
 import wonLogo from "@/assets/won-logo-transparent.png";
 import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
@@ -21,6 +22,8 @@ const Navigation = () => {
   const [isBookingsModalOpen, setIsBookingsModalOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -42,7 +45,10 @@ const Navigation = () => {
     await supabase.auth.signOut();
   };
 
-  const isAdmin = user?.email === "admin@wonproductions.com" || user?.email?.endsWith("@wonproductions.com");
+  const handleAdminLogin = () => {
+    setIsAdminLoggedIn(true);
+    setIsAdminDashboardOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +63,7 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass shadow-glass py-2" : "bg-transparent py-4"
+        isScrolled ? "glass shadow-glass py-3" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6">
@@ -112,16 +118,10 @@ const Navigation = () => {
                       <Calendar className="mr-2 h-4 w-4" />
                       <span>My Bookings</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setIsSettingsModalOpen(true)}>
-                      <SettingsIcon className="mr-2 h-4 w-4" />
-                      <span>Settings</span>
-                    </DropdownMenuItem>
-                    {isAdmin && (
-                      <DropdownMenuItem onClick={() => setIsAdminDashboardOpen(true)}>
-                        <SettingsIcon className="mr-2 h-4 w-4" />
-                        <span>Admin Dashboard</span>
-                      </DropdownMenuItem>
-                    )}
+                     <DropdownMenuItem onClick={() => setIsSettingsModalOpen(true)}>
+                       <SettingsIcon className="mr-2 h-4 w-4" />
+                       <span>Settings</span>
+                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleSignOut}>
                       <LogOut className="mr-2 h-4 w-4" />
@@ -134,10 +134,15 @@ const Navigation = () => {
                       <LogIn className="mr-2 h-4 w-4" />
                       <span>Sign In</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setIsAuthModalOpen(true)}>
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Sign Up</span>
-                    </DropdownMenuItem>
+                     <DropdownMenuItem onClick={() => setIsAuthModalOpen(true)}>
+                       <User className="mr-2 h-4 w-4" />
+                       <span>Sign Up</span>
+                     </DropdownMenuItem>
+                     <DropdownMenuSeparator />
+                     <DropdownMenuItem onClick={() => setIsAdminLoginOpen(true)}>
+                       <SettingsIcon className="mr-2 h-4 w-4" />
+                       <span>Admin Login</span>
+                     </DropdownMenuItem>
                   </>
                 )}
               </DropdownMenuContent>
@@ -204,11 +209,18 @@ const Navigation = () => {
           onClose={() => setIsSettingsModalOpen(false)} 
           user={user} 
         />
-        <AdminDashboard 
-          isOpen={isAdminDashboardOpen} 
-          onClose={() => setIsAdminDashboardOpen(false)} 
-          user={user} 
+        <AdminLogin
+          isOpen={isAdminLoginOpen}
+          onClose={() => setIsAdminLoginOpen(false)}
+          onAdminLogin={handleAdminLogin}
         />
+        {isAdminLoggedIn && (
+          <AdminDashboard 
+            isOpen={isAdminDashboardOpen} 
+            onClose={() => setIsAdminDashboardOpen(false)} 
+            user={user} 
+          />
+        )}
       </div>
     </nav>
   );

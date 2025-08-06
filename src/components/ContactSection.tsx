@@ -14,8 +14,8 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "contact@worldofnile.xyz",
-      link: "mailto:contact@worldofnile.xyz"
+      value: "contact@worldofnile.com",
+      link: "mailto:contact@worldofnile.com"
     },
     {
       icon: Phone,
